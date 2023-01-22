@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public abstract class Task {
-    private static int idGenerator = 0;
+    static int idGenerator = 0;
     private String title;
     private final Type type;
     private final LocalDateTime dateTime;
@@ -15,9 +15,11 @@ public abstract class Task {
     public Task(String title, Type type, String description) {
         idGenerator++;
         this.id = idGenerator;
-
-        this.title = title;
+        this.dateTime = LocalDateTime.now();
         this.type = type;
+        if (nullString(title)) title = "БЕЗЫМЯННАЯ задача";
+        this.title = title;
+        if (nullString(description)) description = "описание отсутствует (:";
         this.description = description;
     }
 
@@ -66,9 +68,13 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "Задача № " +id+
-        " : " + title + " (" + type +"), дата создания = " + dateTime +
+        return "Задача № " + id +
+                " : " + title + " (" + type + "), время создания = " + dateTime +
                 "\n краткое описание: " + description;
+    }
+
+    public static boolean nullString(String s) {
+        return (s == null || s.isEmpty() || s.isBlank());
     }
 }
 
