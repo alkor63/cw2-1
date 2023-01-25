@@ -1,12 +1,13 @@
 import CourseWork2code.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        LocalDateTime polisDate = LocalDateTime.of(2022,11,10,9,15);
+        LocalDate polisDate = LocalDate.of(2022,11,10);
         System.out.println("Input дата : "+polisDate);
         System.out.println("Текущая дата : "+LocalDateTime.now());
 
@@ -26,6 +27,7 @@ public class Main {
         System.out.println(task6);
         System.out.println(task7);
         System.out.println(task8);
+        System.out.println(task1.appearsIn(polisDate));
 /*
         try (Scanner scanner = new Scanner(System.in)) {
             label:
