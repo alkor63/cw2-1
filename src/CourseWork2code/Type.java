@@ -1,7 +1,7 @@
 package CourseWork2code;
 
 public enum Type {
-    WORK ("РАБЮОЧАЯ"),
+    WORK ("РАБОЧАЯ"),
     PERSONAL ("ЛИЧНАЯ");
 
     private final String taskType;
