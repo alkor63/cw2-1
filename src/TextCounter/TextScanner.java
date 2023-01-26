@@ -1,18 +1,41 @@
 package TextCounter;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class TextScanner {
 
     public static void main(String[] args) {
-        System.out.println("Количество слов в тексте = " + getWordCount(makeWordList()));
-        System.out.println("Частотное распределение слов в тексте :" + getFrequencyForWord("то", makeWordList()));
-        for (HashMap.Entry<String, Integer> anyWord : makeWordList().entrySet()) {
-            System.out.println("кол-во повторов: " + anyWord.getValue() + "\t слово: " + anyWord.getKey());
+        String inputText = "стою на асфальте на в лыжи обутый, то ли лыжи не едут, то ли я перегрелся на";
+        System.out.println("Input text:\n"+inputText);
+        int numWordInText = getWordCount(makeWordList(inputText));
+        System.out.println("Количество уникальных слов в тексте = " + numWordInText);
+        System.out.println("Частотное распределение слов в тексте :");
+        System.out.println("кол-во \t слово ");
+        for (HashMap.Entry<String, Integer> anyWord : makeWordList(inputText).entrySet()) {
+            System.out.println("   " + anyWord.getValue() + "\t " + anyWord.getKey());
         }
-    }
+// TreeMap – использующий String ключи и компаратор (Comparator) CASE_INSENSITIVE_ORDER,
+// упорядочивающий строки (String) методом compareToIgnoreCase
+        Map<String, Integer> sortedMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        sortedMap.putAll(makeWordList(inputText));
+        System.out.println("\nПосле сортировки по алфавиту:");
+        System.out.println("кол-во \t слово ");
+        int maxRepeat = 1;
+        for (HashMap.Entry<String, Integer> anyWord : sortedMap.entrySet()) {
+            System.out.println("   " + anyWord.getValue() + "\t " + anyWord.getKey());
+            if (anyWord.getValue() > maxRepeat) maxRepeat = anyWord.getValue();
+        }
+        System.out.println("maxRepeat = "+maxRepeat);
+        System.out.println("\nВыводим ТОП-10 по частоте повторений:");
+        int count10 = 0;
+        for (int i=maxRepeat; i>0;i--){
+            for (HashMap.Entry<String, Integer> anyWord : sortedMap.entrySet()) {
+                if (anyWord.getValue() == i){
+                count10++;
+                System.out.println("   " + anyWord.getValue() + "\t " + anyWord.getKey());
+        } if (count10 == 10 || count10 == numWordInText) break;
+        }
+    }}
 
     /*
     public ArrayList<String> makeWordList(){
@@ -21,8 +44,7 @@ public class TextScanner {
 
            String word = scan.next(); //scanner automatically uses " " as a delimeter
     */
-    public static HashMap<String, Integer> makeWordList() {
-        String inputText = "стою на асфальте в лыжи обутый, то ли лыжи не едут, то ли я перегрелся";
+    public static HashMap<String, Integer> makeWordList(String inputText) {
         Scanner scan = new Scanner(inputText);
         HashMap<String, Integer> listOfWords = new HashMap<String, Integer>();
 //        Scanner scan = new Scanner(sc);
@@ -44,11 +66,5 @@ public class TextScanner {
     public static int getWordCount(HashMap<String, Integer> list) {
         return list.size();
     }
-
-    //get the frequency of the given word
-    public static int getFrequencyForWord(String word, HashMap<String, Integer> list) {
-        return list.get(word);
-    }
-
 
 }
