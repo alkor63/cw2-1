@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import static CourseWork2code.TaskService.inputTask;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -65,67 +67,6 @@ public class Main {
         for (Task task : tasks) System.out.println(task);
 
     }
-
-    private static void inputTask(Scanner scanner, List<Task> tasks) {
-        Scanner scanner1 = new Scanner(System.in);
-        Scanner scanner2 = new Scanner(System.in);
-
-        System.out.print("Введите название задачи: ");
-        String taskName = scanner.next();
-        System.out.print("Введите краткое описание задачи: ");
-        String taskDescription = scanner1.next();
-        System.out.print("\n *** Выберите тип задачи:\n 1 - рабочая (Work)\n 2 - личная (Personal)\n ваш выбор? :");
-        Type taskTyp = Type.PERSONAL;
-
-                int menu2 = scanner2.nextInt();
-
-                switch (menu2) {
-                    case 1:
-                        taskTyp = Type.WORK;
-                        break;
-                    case 2:
-                        taskTyp = Type.PERSONAL;
-                        break;
-                    default: {
-                        System.out.println("ТИП задачи указан невнрно, ты всё сломал !");
-                        taskTyp = Type.valueOf("ЛИЧНАЯ");
-                    }
-                }
-
-        System.out.print("\n *** Выберите повторяемость задачи:\n 1 - однократная\n" +
-                " 2 - ежедневная\n 3 - еженедельная\n" +
-                " 4 - ежемесячная\n 5 - ежегодная\n" +
-                "ваш выбор? :");
-        Task task9;
-            int menu = scanner2.nextInt();
-            switch (menu) {
-                case 1:
-                    task9 = new OneTimeTask(taskName, taskTyp, taskDescription);
-                    break;
-                case 2:
-                    task9 = new DailyTask(taskName, taskTyp, taskDescription);
-                    break;
-                case 3:
-                    task9 = new WeeklyTask(taskName, taskTyp, taskDescription);
-                    break;
-                case 4:
-                    task9 = new MonthlyTask(taskName, taskTyp, taskDescription);
-                    break;
-                case 5:
-                    task9 = new YearlyTask(taskName, taskTyp, taskDescription);
-                    break;
-                default: {
-                    System.out.println("ПОВТОРЯЕМОСТЬ задачи указана невнрно, ты всё сломал !");
-                    task9 = new OneTimeTask(taskName, taskTyp, taskDescription);
-                }
-            }
-
-            if (!tasks.contains(task9)) tasks.add(task9);
-            System.out.println("Вот что вы навводили:\n" + task9);
-
-//            if (tasks.contains(task9))tasks.add(task9);
-    }
-
 
     private static void printMenu1() {
         System.out.println("\n1. Добавить задачу\n2. Удалить задачу\n3. Получить задачу на указанный день\n0. Выход");

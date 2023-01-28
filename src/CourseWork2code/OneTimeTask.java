@@ -16,7 +16,7 @@ public class OneTimeTask extends Task {
 
     @Override
     public boolean appearsIn(LocalDate d) {
-        return true;
+        return false;
     }
 
     @Override
