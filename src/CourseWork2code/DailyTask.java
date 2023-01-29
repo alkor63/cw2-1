@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class DailyTask extends Task {
     //        implements Comparable
     private final LocalDateTime dateTime;
-    private final int id;
+    private final Integer id;
 
     public DailyTask(String title, Type type, String description) {
         super(title, type, description);

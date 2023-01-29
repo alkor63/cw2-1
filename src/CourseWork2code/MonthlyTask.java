@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class MonthlyTask extends Task {
     //        implements Comparable
     private final LocalDateTime dateTime;
-    private final int id;
+    private final Integer id;
 
     public MonthlyTask(String title, Type type, String description) {
         super(title, type, description);
@@ -15,7 +15,7 @@ public class MonthlyTask extends Task {
 
     @Override
     public boolean appearsIn(LocalDate d) {
-        if (d.getDayOfMonth() == getDateTime().getDayOfMonth())
+        if (d.getDayOfMonth() == getTaskDate().getDayOfMonth())
             return true;
         else return false;
     }

@@ -4,14 +4,16 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class TaskService {
-    private Map<Integer, Task> taskMap(Integer id){
-        return taskMap(id);
-    }
-    private Set<Task> removedTasks(){
-        return null;
-    }
+    static Set<Task> taskSet = new HashSet<>();
+//    private Map<Integer, Task> taskMap(Integer id){
+//        return taskMap(id);
+//    }
+//    private Set<Task> removedTasks(){
+//        return null;
+//    }
 
-    public static void inputTask(Scanner scanner, List<Task> tasks) {
+    //    public static void inputTask(Scanner scanner, List<Task> tasks) {
+    public static void inputTask(Scanner scanner, Map<Integer, Task> tasks) {
         Scanner scanner1 = new Scanner(System.in);
         Scanner scanner2 = new Scanner(System.in);
 
@@ -64,38 +66,80 @@ public class TaskService {
                 task9 = new OneTimeTask(taskName, taskTyp, taskDescription);
             }
         }
-
-        if (!tasks.contains(task9)) tasks.add(task9);
+//        if (!tasks.contains(task9)) tasks.add(task9);
+        tasks.put(task9.getId(), task9);
         System.out.println("Вот что вы навводили:\n" + task9);
     }
-public static Task updateDescription(int id, Task task){
-    Scanner scanner = new Scanner(System.in);
-    System.out.print("Введите краткое описание задачи: ");
-    String taskDescription = scanner.next();
-    task.setDescription(taskDescription);
-    return task;
-}
 
-public static Set<Task> getRemovedTasks(){
-        return getRemovedTasks();
-}
+    public static void updateDescription(Map<Integer, Task> tasks) {
+        Scanner scannerId = new Scanner(System.in);
+        System.out.print("Введите номер (int id) задачи, описание которой нужно изменить: ");
+        Integer id = scannerId.nextInt();
+        if (tasks.containsKey(id)) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Введите новое описание задачи: ");
+            String description = scanner.next();
+            tasks.get(id).setDescription(description);
+            System.out.println("*** У задачи с id= " + id + " новое описание: "+tasks.get(id).getDescription());
+        } else System.out.println("*** в нашем списке нет задачи с номером " + id);
+    }
 
-public static Task remove(int id, Task task){
-        if(task.getId() == id) {}
-    return task;
-}
+    public static void getRemovedTasks() {
+        if (taskSet.size() > 0) {
+            System.out.println("+++      в нашем архиве " + taskSet.size() + " удаленных задач     +++");
+            System.out.println("   выводим их список через Итератор :");
+            Iterator<Task> iter = taskSet.iterator();
+            while (iter.hasNext()) {
+                Task next = iter.next();
+                System.out.println(next);
+            }
+        } else System.out.println("+++      в нашем архиве нет удаленных задач     +++");
+    }
 
-public static Map<LocalDate, Set<Task>> getAllGroupByDate(LocalDate date, Task task){
-    System.out.println(task.getDateTime());
-    return getAllGroupByDate(date,task);
-}
+    public static void removeId(Map<Integer, Task> tasks) {
+        Scanner scannerId = new Scanner(System.in);
+        System.out.print("Введите номер (int id) задачи, которую нужно удалить: ");
+        Integer id = scannerId.nextInt();
+        System.out.println("вы ввели id = " + id);
+        if (tasks.containsKey(id)) {
+            Task task = tasks.get(id);
+            taskSet.add(task);
+            tasks.remove(id);
+            System.out.println("*** Задача с id= " + id + " удаленна из списка и перемещена в архив");
+        } else System.out.println("*** в нашем списке нет задачи с номером " + id);
+    }
 
-public static Task updateTitle(int id, String title) {
-        return updateTitle(id, title);
-}
+    public static Map<LocalDate, Set<Task>> getAllGroupByDate(LocalDate date, Task task) {
+        System.out.println(task.getDateTime());
+        return getAllGroupByDate(date, task);
+    }
 
-public static Set<Task> getAllByDate(LocalDate date) {
-        return getAllByDate(date);
-}
+    public static void updateTitle(Map<Integer, Task> tasks) {
+        Scanner scannerId = new Scanner(System.in);
+        System.out.print("Введите номер (int id) задачи, титул которой нужно изменить: ");
+        Integer id = scannerId.nextInt();
+        if (tasks.containsKey(id)) {
+            Task task = tasks.get(id);
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Введите новое название задачи: ");
+            String taskName = scanner.next();
+            tasks.get(id).setTitle(taskName);
+            System.out.println("*** У задачи с id= " + id + " новый титул: "+tasks.get(id).getTitle());
+        } else System.out.println("*** в нашем списке нет задачи с номером " + id);
+    }
+
+    public void getAllByDate(Map<Integer, Task> tasks, LocalDate date) {
+        System.out.println("Задачи на дату " + date);
+        int i = 0;
+        for (Map.Entry<Integer, Task> task : tasks.entrySet()) {
+            if (task.getValue().getDateTime().toLocalDate().equals(date))
+//            || Task.appearsIn(date)){
+                System.out.println(task);
+            i++;
+        }
+//        }
+        if (i < 0) System.out.println("не обнаружены");
+//        return;
+    }
 
 }

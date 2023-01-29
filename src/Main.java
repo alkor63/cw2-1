@@ -3,19 +3,16 @@ import CourseWork2code.*;
 import javax.sound.sampled.AudioFileFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-import static CourseWork2code.TaskService.inputTask;
+import static CourseWork2code.TaskService.*;
 
 public class Main {
     public static void main(String[] args) {
 
-        LocalDate inputDate = LocalDate.of(2022, 11, 10);
-        System.out.println("Input дата : " + inputDate);
-        System.out.println("Текущая дата : " + LocalDate.now());
+//        LocalDate inputDate = LocalDate.of(2022, 11, 10);
+//        System.out.println("Input дата : " + inputDate);
+//        System.out.println("Текущая дата : " + LocalDate.now());
 //        System.out.println("Текущая дата : "+LocalDateTime.now());
 
         OneTimeTask task1 = new OneTimeTask("Task #1 oneTime", Type.WORK, null);
@@ -26,8 +23,9 @@ public class Main {
         WeeklyTask task6 = new WeeklyTask("Task #6 weekly", Type.PERSONAL, "claening");
         MonthlyTask task7 = new MonthlyTask("Task #7 monthly", Type.WORK, "monthly report");
         YearlyTask task8 = new YearlyTask("Task #8 yearly", Type.WORK, "");
-        List<Task> tasks = new ArrayList<>();
 
+/* создаем список, заносим в него задачи
+        List<Task> tasks = new ArrayList<>();
         tasks.add(task1);
         if (!tasks.contains(task2)) tasks.add(task2);
         if (!tasks.contains(task3)) tasks.add(task3);
@@ -36,7 +34,17 @@ public class Main {
         if (!tasks.contains(task6)) tasks.add(task6);
         if (!tasks.contains(task7)) tasks.add(task7);
         if (!tasks.contains(task8)) tasks.add(task8);
-
+*/
+// вместо списка используем мапу
+        Map<Integer, Task> tasks = new HashMap<>();
+        tasks.put(task1.getId(), task1);
+        tasks.put(task2.getId(), task2);
+        tasks.put(task3.getId(), task3);
+        tasks.put(task4.getId(), task4);
+        tasks.put(task5.getId(), task5);
+        tasks.put(task6.getId(), task6);
+        tasks.put(task7.getId(), task7);
+        tasks.put(task8.getId(), task8);
         try (Scanner scanner = new Scanner(System.in)) {
             label:
             while (true) {
@@ -49,10 +57,19 @@ public class Main {
                             inputTask(scanner, tasks);
                             break;
                         case 2:
-                            // todo: обрабатываем пункт меню 2 (удалить задачу)
+                            removeId(tasks);
                             break;
                         case 3:
                             // todo: обрабатываем пункт меню 3 (Получить задачу на указанный день)
+                            break;
+                        case 4:
+                            getRemovedTasks();
+                            break;
+                        case 5:
+                            updateTitle(tasks);
+                            break;
+                        case 6:
+                            updateDescription(tasks);
                             break;
                         case 0:
                             break label;
@@ -64,12 +81,15 @@ public class Main {
             }
         }
         System.out.println(" *** итоговый список задач ежедневника: ***");
-        for (Task task : tasks) System.out.println(task);
-
+        // если список:        for (Task task : tasks) System.out.println(task);
+        for (Map.Entry<Integer, Task> tasK : tasks.entrySet())
+            System.out.println("id = " + tasK.getKey() + " task = " + tasK.getValue());
     }
 
     private static void printMenu1() {
-        System.out.println("\n1. Добавить задачу\n2. Удалить задачу\n3. Получить задачу на указанный день\n0. Выход");
+        System.out.println("\n1. Добавить задачу\n2. Удалить задачу\n3. Получить задачу на указанный день\n" +
+                "4. Показать архив удаленных задач\n5. Отредактировать титул задачи\n" +
+                "6. Добавить/изменить описание задачи\n0. Выход");
 
     }
 }
