@@ -5,7 +5,10 @@ import java.util.*;
 public class TextScanner {
 
     public static void main(String[] args) {
-        String inputText = "стою на асфальте на в лыжи обутый, то ли лыжи не едут, то ли я перегрелся на";
+        Scanner console = new Scanner(System.in);
+        System.out.println("Введите текст, да подлиннее:");
+        String inputText = console.nextLine();
+//        String inputText = "А и Б сидели на трубе А упало Б пропало что осталось на трубе ?";
         System.out.println("Input text:\n"+inputText);
         int numWordInText = getWordCount(makeWordList(inputText));
         System.out.println("Количество уникальных слов в тексте = " + numWordInText);

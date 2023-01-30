@@ -9,7 +9,6 @@ public abstract class Task {
     private String title;
     private final Type type;
     private final LocalDateTime dateTime;
-    private final LocalDate taskDate;
     private String description;
     private final int id;
 
@@ -22,12 +21,7 @@ public abstract class Task {
         this.title = title;
         if (nullString(description)) description = "описание отсутствует (:";
         this.description = description;
-        this.taskDate = LocalDate.now();
     }
-
-    public LocalDate getTaskDate() {         return taskDate;    }
-
-    public abstract boolean appearsIn(LocalDate d);
 
     public Type getType() {
         return type;
@@ -56,6 +50,8 @@ public abstract class Task {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public abstract boolean appearsIn(LocalDate inputDate, LocalDate taskDate);
 
     @Override
     public boolean equals(Object o) {

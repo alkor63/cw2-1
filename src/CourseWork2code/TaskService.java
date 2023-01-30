@@ -78,7 +78,7 @@ public class TaskService {
         if (tasks.containsKey(id)) {
             Scanner scanner = new Scanner(System.in);
             System.out.print("Введите новое описание задачи: ");
-            String description = scanner.next();
+            String description = scanner.nextLine();
             tasks.get(id).setDescription(description);
             System.out.println("*** У задачи с id= " + id + " новое описание: "+tasks.get(id).getDescription());
         } else System.out.println("*** в нашем списке нет задачи с номером " + id);
@@ -109,11 +109,11 @@ public class TaskService {
         } else System.out.println("*** в нашем списке нет задачи с номером " + id);
     }
 
-    public static Map<LocalDate, Set<Task>> getAllGroupByDate(LocalDate date, Task task) {
+/*    public static Map<LocalDate, Set<Task>> getAllGroupByDate(LocalDate date, Task task) {
         System.out.println(task.getDateTime());
         return getAllGroupByDate(date, task);
     }
-
+*/
     public static void updateTitle(Map<Integer, Task> tasks) {
         Scanner scannerId = new Scanner(System.in);
         System.out.print("Введите номер (int id) задачи, титул которой нужно изменить: ");
@@ -122,24 +122,37 @@ public class TaskService {
             Task task = tasks.get(id);
             Scanner scanner = new Scanner(System.in);
             System.out.print("Введите новое название задачи: ");
-            String taskName = scanner.next();
+            String taskName = scanner.nextLine();
             tasks.get(id).setTitle(taskName);
             System.out.println("*** У задачи с id= " + id + " новый титул: "+tasks.get(id).getTitle());
         } else System.out.println("*** в нашем списке нет задачи с номером " + id);
     }
 
-    public void getAllByDate(Map<Integer, Task> tasks, LocalDate date) {
-        System.out.println("Задачи на дату " + date);
+    public static void getAllByDate(Map<Integer, Task> tasks, LocalDate date) {
+//        System.out.println("Задачи на дату " + date);
         int i = 0;
         for (Map.Entry<Integer, Task> task : tasks.entrySet()) {
-            if (task.getValue().getDateTime().toLocalDate().equals(date))
-//            || Task.appearsIn(date)){
+            LocalDate taskDate = task.getValue().getDateTime().toLocalDate();
+            if (taskDate.equals(date)) {
+ //                   || task.appearsIn(date, taskDate)){
+                i++;
                 System.out.println(task);
-            i++;
-        }
-//        }
-        if (i < 0) System.out.println("не обнаружены");
+            }
+       }
+        if (i < 1) System.out.println("не обнаружены");
 //        return;
+    }
+
+    public static LocalDate inputDate(){
+        Scanner scannerD = new Scanner(System.in);
+        System.out.println("Какая дата вас интересует?");
+        System.out.print("Введите день: ");
+        int d = scannerD.nextInt();
+        System.out.print("Введите месяц: ");
+        int m = scannerD.nextInt();
+        System.out.print("Введите год [гггг]: ");
+        int y = scannerD.nextInt();
+        return LocalDate.of(y, m, d);
     }
 
 }

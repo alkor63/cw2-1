@@ -14,7 +14,7 @@ public class DailyTask extends Task {
     }
 
     @Override
-    public boolean appearsIn(LocalDate d) {
+    public boolean appearsIn(LocalDate inputDate, LocalDate taskDate) {
         return true;
     }
 

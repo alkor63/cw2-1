@@ -61,6 +61,9 @@ public class Main {
                             break;
                         case 3:
                             // todo: обрабатываем пункт меню 3 (Получить задачу на указанный день)
+                            LocalDate date = inputDate();
+                            System.out.println("Задачи на дату " + date);
+                            getAllByDate(tasks, date);
                             break;
                         case 4:
                             getRemovedTasks();
