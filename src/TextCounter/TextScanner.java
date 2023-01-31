@@ -5,11 +5,14 @@ import java.util.*;
 public class TextScanner {
 
     public static void main(String[] args) {
-        Scanner console = new Scanner(System.in);
-        System.out.println("Введите текст, да подлиннее:");
-        String inputText = console.nextLine();
-//        String inputText = "А и Б сидели на трубе А упало Б пропало что осталось на трубе ?";
-        System.out.println("Input text:\n"+inputText);
+//        Scanner console = new Scanner(System.in);
+//        System.out.println("Введите текст, да подлиннее:");
+//        String inputTextWithChar = console.nextLine();
+        String inputTextWithChar = "А и Б сидели на трубе. А упало Б пропало, что осталось на трубе?" +
+                " (подсказка: на трубе осталась буква)";
+
+        String inputText = removePunctuations(inputTextWithChar);//удаляем знаки пунктуации
+        System.out.println("Входной текст без скобок и знаков препинания:\n" + inputText);
         int numWordInText = getWordCount(makeWordList(inputText));
         System.out.println("Количество уникальных слов в тексте = " + numWordInText);
         System.out.println("Частотное распределение слов в тексте :");
@@ -28,33 +31,28 @@ public class TextScanner {
             System.out.println("   " + anyWord.getValue() + "\t " + anyWord.getKey());
             if (anyWord.getValue() > maxRepeat) maxRepeat = anyWord.getValue();
         }
-        System.out.println("maxRepeat = "+maxRepeat);
+        System.out.println("maxRepeat = " + maxRepeat);
         System.out.println("\nВыводим ТОП-10 по частоте повторений:");
         int count10 = 0;
-        for (int i=maxRepeat; i>0;i--){
+        for (int i = maxRepeat; i > 0; i--) {
             for (HashMap.Entry<String, Integer> anyWord : sortedMap.entrySet()) {
-                if (anyWord.getValue() == i){
-                count10++;
-                System.out.println("   " + anyWord.getValue() + "\t " + anyWord.getKey());
-        } if (count10 == 10 || count10 == numWordInText) break;
+                if (anyWord.getValue() == i) {
+                    count10++;
+                    System.out.println("   " + anyWord.getValue() + "\t " + anyWord.getKey());
+                }
+                if (count10 == 10 || count10 == numWordInText) break;
+            }
         }
-    }}
+    }
 
-    /*
-    public ArrayList<String> makeWordList(){
-        Scanner scan = new Scanner(yourTextFileOrOtherTypeOfInput);
-        ArrayList<String> listOfWords = new ArrayList<String>();
-
-           String word = scan.next(); //scanner automatically uses " " as a delimeter
-    */
     public static HashMap<String, Integer> makeWordList(String inputText) {
         Scanner scan = new Scanner(inputText);
         HashMap<String, Integer> listOfWords = new HashMap<String, Integer>();
 //        Scanner scan = new Scanner(sc);
         while (scan.hasNext()) {
-            String word = scan.next(); //scanner automatically uses " " as a delimeter
+            String word = scan.next(); //scanner automatically uses " " as a delimiter
             int countWord = 0;
-            if (!listOfWords.containsKey(word)) {                             //add word if it isn't added already
+            if (!listOfWords.containsKey(word)) {  //add word if it isn't added already
                 listOfWords.put(word, 1); //first occurance of this word
             } else {
                 countWord = listOfWords.get(word) + 1; //get current count and increment
@@ -64,6 +62,10 @@ public class TextScanner {
             }
         }
         return listOfWords; //return the HashMap you made of distinct words
+    }
+
+    public static String removePunctuations(String source) {
+        return source.replaceAll("\\p{IsPunctuation}", "");
     }
 
     public static int getWordCount(HashMap<String, Integer> list) {

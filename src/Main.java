@@ -22,7 +22,7 @@ public class Main {
         DailyTask task5 = new DailyTask("Task #5 dayly", Type.PERSONAL, "почистить зубы");
         WeeklyTask task6 = new WeeklyTask("Task #6 weekly", Type.PERSONAL, "claening");
         MonthlyTask task7 = new MonthlyTask("Task #7 monthly", Type.WORK, "monthly report");
-        YearlyTask task8 = new YearlyTask("Task #8 yearly", Type.WORK, "");
+        YearlyTask task8 = new YearlyTask("Task #8 yearly", Type.WORK, "чей-то день рождения");
 
 /* создаем список, заносим в него задачи
         List<Task> tasks = new ArrayList<>();

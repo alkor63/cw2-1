@@ -133,8 +133,7 @@ public class TaskService {
         int i = 0;
         for (Map.Entry<Integer, Task> task : tasks.entrySet()) {
             LocalDate taskDate = task.getValue().getDateTime().toLocalDate();
-            if (taskDate.equals(date)) {
- //                   || task.appearsIn(date, taskDate)){
+            if (taskDate.equals(date)|| task.getValue().appearsIn(date, taskDate)){
                 i++;
                 System.out.println(task);
             }
@@ -152,6 +151,7 @@ public class TaskService {
         int m = scannerD.nextInt();
         System.out.print("Введите год [гггг]: ");
         int y = scannerD.nextInt();
+        if (y < 100) y += 2000;
         return LocalDate.of(y, m, d);
     }
 
