@@ -23,7 +23,7 @@ public abstract class Task {
             checkTitle(title);
             this.title = title;
         } catch (IncorrectArgumentException e) {
-            System.out.println("title = "+title+"\n"+e.getMessage());
+            System.out.println("title = " + title + "\n" + e.getMessage());
             throw new IllegalArgumentException();
         }
     }
@@ -77,11 +77,13 @@ public abstract class Task {
                 " : " + title + " (" + type + "), время создания = " + dateTime +
                 "\n краткое описание: " + description;
     }
-protected static void checkTitle(String title) throws IncorrectArgumentException{
-    if (nullString(title)) {
-        throw new IncorrectArgumentException("*** У задачи должен быть титул! ***", title);
+
+    protected static void checkTitle(String title) throws IncorrectArgumentException {
+        if (nullString(title)) {
+            throw new IncorrectArgumentException("*** У задачи должен быть титул! ***", title);
+        }
     }
-}
+
     public static boolean nullString(String s) {
         return (s == null || s.isEmpty() || s.isBlank());
     }

@@ -5,14 +5,7 @@ import java.util.*;
 
 public class TaskService {
     static Set<Task> taskSet = new HashSet<>();
-//    private Map<Integer, Task> taskMap(Integer id){
-//        return taskMap(id);
-//    }
-//    private Set<Task> removedTasks(){
-//        return null;
-//    }
 
-    //    public static void inputTask(Scanner scanner, List<Task> tasks) {
     public static void inputTask(Scanner scanner, Map<Integer, Task> tasks) {
         Scanner scanner1 = new Scanner(System.in);
         Scanner scanner2 = new Scanner(System.in);

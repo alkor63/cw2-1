@@ -1,6 +1,5 @@
 import CourseWork2code.*;
 
-import javax.sound.sampled.AudioFileFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -24,17 +23,6 @@ public class Main {
         MonthlyTask task7 = new MonthlyTask("Task #7 monthly", Type.WORK, "monthly report");
         YearlyTask task8 = new YearlyTask("Task #8 yearly", Type.WORK, "чей-то день рождения2");
 
-/* создаем список, заносим в него задачи
-        List<Task> tasks = new ArrayList<>();
-        tasks.add(task1);
-        if (!tasks.contains(task2)) tasks.add(task2);
-        if (!tasks.contains(task3)) tasks.add(task3);
-        if (!tasks.contains(task4)) tasks.add(task4);
-        if (!tasks.contains(task5)) tasks.add(task5);
-        if (!tasks.contains(task6)) tasks.add(task6);
-        if (!tasks.contains(task7)) tasks.add(task7);
-        if (!tasks.contains(task8)) tasks.add(task8);
-*/
 // вместо списка используем мапу
         Map<Integer, Task> tasks = new HashMap<>();
         tasks.put(task1.getId(), task1);
@@ -93,6 +81,5 @@ public class Main {
         System.out.println("\n1. Добавить задачу\n2. Удалить задачу\n3. Получить задачу на указанный день\n" +
                 "4. Показать архив удаленных задач\n5. Отредактировать титул задачи\n" +
                 "6. Добавить/изменить описание задачи\n0. Выход");
-
     }
 }
