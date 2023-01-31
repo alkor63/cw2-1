@@ -114,22 +114,7 @@ public class TaskService {
         }
     }
 
-    /*
-        public static void checkDriver(Driver... drivers) throws IllegalLicenseException {
-            for (Driver driver : drivers) {
-                try {
-                    checkCategory(driver);
-                } catch (IllegalLicenseException e) {
-                    System.out.println("Водителю " + driver.getName() + " " + driver.getLastName() + e.getMessage());
-                }
-            }
-        }
-        public static void checkCategory(Driver driver) throws IllegalLicenseException {
-            if ((driver.getCategory()) < 'B' || driver.getCategory() > 'Д') {
-                throw new IllegalLicenseException(" необходимо корректно указать тип прав!");
-            }
-        }
-    */
+
     public static void updateTitle(Map<Integer, Task> tasks) {
         Scanner scannerId = new Scanner(System.in);
         System.out.print("Введите номер (int id) задачи, титул которой нужно изменить: ");
@@ -158,7 +143,6 @@ public class TaskService {
             }
         }
         if (i < 1) System.out.println("не обнаружены");
-//        return;
     }
 
     public static LocalDate inputDate() {
