@@ -75,13 +75,16 @@ public class TaskService {
         Scanner scannerId = new Scanner(System.in);
         System.out.print("Введите номер (int id) задачи, описание которой нужно изменить: ");
         Integer id = scannerId.nextInt();
-        if (tasks.containsKey(id)) {
+        try {
+            checkId(tasks, id);
             Scanner scanner = new Scanner(System.in);
             System.out.print("Введите новое описание задачи: ");
             String description = scanner.nextLine();
             tasks.get(id).setDescription(description);
-            System.out.println("*** У задачи с id= " + id + " новое описание: "+tasks.get(id).getDescription());
-        } else System.out.println("*** в нашем списке нет задачи с номером " + id);
+            System.out.println("*** У задачи с id= " + id + " новое описание: " + tasks.get(id).getDescription());
+        } catch (TaskNotFoundException e) {
+            System.out.println(e.getMessage() + id + " ***");
+        }
     }
 
     public static void getRemovedTasks() {
@@ -100,32 +103,48 @@ public class TaskService {
         Scanner scannerId = new Scanner(System.in);
         System.out.print("Введите номер (int id) задачи, которую нужно удалить: ");
         Integer id = scannerId.nextInt();
-        System.out.println("вы ввели id = " + id);
-        if (tasks.containsKey(id)) {
+        try {
+            checkId(tasks, id);
             Task task = tasks.get(id);
             taskSet.add(task);
             tasks.remove(id);
             System.out.println("*** Задача с id= " + id + " удаленна из списка и перемещена в архив");
-        } else System.out.println("*** в нашем списке нет задачи с номером " + id);
+        } catch (TaskNotFoundException e) {
+            System.out.println(e.getMessage() + id + " ***");
+        }
     }
 
-/*    public static Map<LocalDate, Set<Task>> getAllGroupByDate(LocalDate date, Task task) {
-        System.out.println(task.getDateTime());
-        return getAllGroupByDate(date, task);
-    }
-*/
+    /*
+        public static void checkDriver(Driver... drivers) throws IllegalLicenseException {
+            for (Driver driver : drivers) {
+                try {
+                    checkCategory(driver);
+                } catch (IllegalLicenseException e) {
+                    System.out.println("Водителю " + driver.getName() + " " + driver.getLastName() + e.getMessage());
+                }
+            }
+        }
+        public static void checkCategory(Driver driver) throws IllegalLicenseException {
+            if ((driver.getCategory()) < 'B' || driver.getCategory() > 'Д') {
+                throw new IllegalLicenseException(" необходимо корректно указать тип прав!");
+            }
+        }
+    */
     public static void updateTitle(Map<Integer, Task> tasks) {
         Scanner scannerId = new Scanner(System.in);
         System.out.print("Введите номер (int id) задачи, титул которой нужно изменить: ");
         Integer id = scannerId.nextInt();
-        if (tasks.containsKey(id)) {
-            Task task = tasks.get(id);
+        try {
+            checkId(tasks, id);
             Scanner scanner = new Scanner(System.in);
             System.out.print("Введите новое название задачи: ");
             String taskName = scanner.nextLine();
             tasks.get(id).setTitle(taskName);
-            System.out.println("*** У задачи с id= " + id + " новый титул: "+tasks.get(id).getTitle());
-        } else System.out.println("*** в нашем списке нет задачи с номером " + id);
+            System.out.println("*** У задачи с id= " + id + " новый титул: " + tasks.get(id).getTitle());
+
+        } catch (TaskNotFoundException e) {
+            System.out.println(e.getMessage() + id + " ***");
+        }
     }
 
     public static void getAllByDate(Map<Integer, Task> tasks, LocalDate date) {
@@ -133,16 +152,16 @@ public class TaskService {
         int i = 0;
         for (Map.Entry<Integer, Task> task : tasks.entrySet()) {
             LocalDate taskDate = task.getValue().getDateTime().toLocalDate();
-            if (taskDate.equals(date)|| task.getValue().appearsIn(date, taskDate)){
+            if (taskDate.equals(date) || task.getValue().appearsIn(date, taskDate)) {
                 i++;
                 System.out.println(task);
             }
-       }
+        }
         if (i < 1) System.out.println("не обнаружены");
 //        return;
     }
 
-    public static LocalDate inputDate(){
+    public static LocalDate inputDate() {
         Scanner scannerD = new Scanner(System.in);
         System.out.println("Какая дата вас интересует?");
         System.out.print("Введите день: ");
@@ -155,4 +174,9 @@ public class TaskService {
         return LocalDate.of(y, m, d);
     }
 
+    public static void checkId(Map<Integer, Task> tasks, int id) throws TaskNotFoundException {
+        if (!tasks.containsKey(id)) {
+            throw new TaskNotFoundException("*** в нашем списке нет задачи с номером ");
+        }
+    }
 }
