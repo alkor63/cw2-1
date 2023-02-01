@@ -5,11 +5,14 @@ import java.util.*;
 public class TextScanner {
 
     public static void main(String[] args) {
-//        Scanner console = new Scanner(System.in);
-//        System.out.println("Введите текст, да подлиннее:");
-//        String inputTextWithChar = console.nextLine();
-        String inputTextWithChar = "А и Б сидели на трубе. А упало Б пропало, что осталось на трубе?" +
-                " (подсказка: на трубе осталась буква)";
+        String inputTextWithChar = null;
+        Scanner console = new Scanner(System.in);
+        while (nullString(inputTextWithChar)) {
+            System.out.println("Введите текст, да подлиннее:");
+            inputTextWithChar = console.nextLine();
+        }
+//        String inputTextWithChar = "А и Б сидели на трубе. А упало Б пропало, что осталось на трубе?" +
+//                " (подсказка: на трубе осталась буква)";
 
         String inputText = removePunctuations(inputTextWithChar);//удаляем знаки пунктуации
         System.out.println("Входной текст без скобок и знаков препинания:\n" + inputText);
@@ -71,5 +74,9 @@ public class TextScanner {
     public static int getWordCount(HashMap<String, Integer> list) {
         return list.size();
     }
+    public static boolean nullString(String s) {
+        return (s == null || s.isEmpty() || s.isBlank());
+    }
+
 
 }

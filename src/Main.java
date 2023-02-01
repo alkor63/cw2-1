@@ -17,11 +17,11 @@ public class Main {
         OneTimeTask task1 = new OneTimeTask("Task #1 oneTime", Type.WORK, null);
         OneTimeTask task2 = new OneTimeTask("Task #2 oneTime", Type.PERSONAL, "Barbershop");
         OneTimeTask task3 = new OneTimeTask("Task #3 oneTime", Type.WORK, " ");
-        DailyTask task4 = new DailyTask("Task #4 dayly", Type.WORK, "Проверить почту");
-        DailyTask task5 = new DailyTask("Task #5 dayly", Type.PERSONAL, "почистить зубы");
-        WeeklyTask task6 = new WeeklyTask("Task #6 weekly", Type.PERSONAL, "claening");
+        DailyTask task4 = new DailyTask("Task #4 daily", Type.WORK, "Проверить почту");
+        DailyTask task5 = new DailyTask("Task #5 daily", Type.PERSONAL, "почистить зубы");
+        WeeklyTask task6 = new WeeklyTask("Task #6 weekly", Type.PERSONAL, "cleaning");
         MonthlyTask task7 = new MonthlyTask("Task #7 monthly", Type.WORK, "monthly report");
-        YearlyTask task8 = new YearlyTask("Task #8 yearly", Type.WORK, "чей-то день рождения2");
+        YearlyTask task8 = new YearlyTask("Task #8 yearly", Type.WORK, "чей-то день рождения");
 
 // вместо списка используем мапу
         Map<Integer, Task> tasks = new HashMap<>();
@@ -67,12 +67,11 @@ public class Main {
                     }
                 } else {
                     scanner.next();
-                    System.out.println("Выберите пункт меню из списка!");
+                    System.out.println("+++++ Выберите пункт меню из списка (введите ЦИФРУ от 0 до 6) ! +++++");
                 }
             }
         }
         System.out.println(" *** итоговый список задач ежедневника: ***");
-        // если список:        for (Task task : tasks) System.out.println(task);
         for (Map.Entry<Integer, Task> tasK : tasks.entrySet())
             System.out.println("id = " + tasK.getKey() + " task = " + tasK.getValue());
     }

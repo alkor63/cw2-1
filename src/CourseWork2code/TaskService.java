@@ -12,10 +12,16 @@ public class TaskService {
 
         System.out.print("Введите название задачи: ");
         String taskName = scanner.next();
+        try {
+            Task.checkTitle(taskName);
+        } catch (IncorrectArgumentException e) {
+            System.out.println("title = " + taskName + "\n" + e.getMessage());
+            throw new IllegalArgumentException();
+        }
         System.out.print("Введите краткое описание задачи: ");
         String taskDescription = scanner1.next();
         System.out.print("\n *** Выберите тип задачи:\n 1 - рабочая (Work)\n 2 - личная (Personal)\n ваш выбор? :");
-        Type taskTyp = Type.PERSONAL;
+        Type taskTyp;
 
         int menu2 = scanner2.nextInt();
 
@@ -70,9 +76,9 @@ public class TaskService {
         Integer id = scannerId.nextInt();
         try {
             checkId(tasks, id);
-            Scanner scanner = new Scanner(System.in);
+            Scanner scannerD = new Scanner(System.in);
             System.out.print("Введите новое описание задачи: ");
-            String description = scanner.nextLine();
+            String description = scannerD.nextLine();
             tasks.get(id).setDescription(description);
             System.out.println("*** У задачи с id= " + id + " новое описание: " + tasks.get(id).getDescription());
         } catch (TaskNotFoundException e) {
@@ -114,9 +120,9 @@ public class TaskService {
         Integer id = scannerId.nextInt();
         try {
             checkId(tasks, id);
-            Scanner scanner = new Scanner(System.in);
+            Scanner scannerT = new Scanner(System.in);
             System.out.print("Введите новое название задачи: ");
-            String taskName = scanner.nextLine();
+            String taskName = scannerT.nextLine();
             tasks.get(id).setTitle(taskName);
             System.out.println("*** У задачи с id= " + id + " новый титул: " + tasks.get(id).getTitle());
 
